@@ -23,9 +23,13 @@ CATEGORIES = [
     ("greek", "Greek letters", "그리스 문자"),
     ("accent", "Accents & decorations", "악센트 · 장식 기호"),
     ("operator", "Operators", "연산자"),
+    ("relation", "Relations & comparison", "관계 · 비교"),
     ("set", "Set & logic", "집합 · 논리"),
+    ("number", "Number sets", "수 체계"),
     ("robotics", "Robotics & Lie theory", "로보틱스 · 리 이론"),
 ]
+
+VALID_CATEGORIES = {key for key, _, _ in CATEGORIES}
 
 HEADERS = {
     "en": ["Symbol", "LaTeX", "Name", "Say it", "In robotics / meaning", "Watch out"],
@@ -122,10 +126,40 @@ def build_readme(symbols: list[dict], lang: str) -> str:
     return intro + "\n" + toc_block + "\n\n" + "\n\n".join(sections) + "\n" + footer
 
 
+def validate(symbols: list) -> None:
+    """Fail loudly on malformed entries so bad contributions never reach the docs."""
+    errors: list[str] = []
+    seen: dict[str, int] = {}
+    for i, e in enumerate(symbols):
+        where = f"entry #{i + 1}"
+        if not isinstance(e, dict):
+            errors.append(f"{where}: not a mapping")
+            continue
+        sym = e.get("symbol")
+        if not sym:
+            errors.append(f"{where}: missing 'symbol'")
+        else:
+            where = f"'{sym}'"
+            if sym in seen:
+                errors.append(f"{where}: duplicate symbol (also entry #{seen[sym] + 1})")
+            seen[sym] = i
+        if not e.get("name"):
+            errors.append(f"{where}: missing 'name'")
+        cat = e.get("category")
+        if cat not in VALID_CATEGORIES:
+            errors.append(f"{where}: category {cat!r} not in {sorted(VALID_CATEGORIES)}")
+        say = e.get("say")
+        if not (isinstance(say, dict) and (say.get("ko") or say.get("en"))):
+            errors.append(f"{where}: 'say' must provide at least 'ko' or 'en'")
+    if errors:
+        sys.exit("symbols.yaml validation failed:\n  - " + "\n  - ".join(errors))
+
+
 def main() -> None:
     symbols = yaml.safe_load(DATA.read_text(encoding="utf-8"))
     if not isinstance(symbols, list):
         sys.exit("symbols.yaml must be a list of entries")
+    validate(symbols)
 
     (ROOT / "README.md").write_text(build_readme(symbols, "en"), encoding="utf-8")
     (ROOT / "README.ko.md").write_text(build_readme(symbols, "ko"), encoding="utf-8")

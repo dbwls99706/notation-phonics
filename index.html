@@ -77,7 +77,7 @@
   <div class="searchbar">
     <input id="q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false"
            placeholder="τ  ·  tau  ·  타우  ·  토크  ·  partial …" aria-label="Search symbols" />
-    <div class="hint">Tip: 기호(τ)·이름(tau)·한글 발음(타우)·뜻(torque) 무엇으로도 검색됩니다.</div>
+    <div class="hint">Tip: 기호(τ)·이름(tau)·한글 발음(타우)·뜻(torque) 무엇으로도 검색됩니다. <kbd>/</kbd> 포커스 · <kbd>Esc</kbd> 비우기</div>
   </div>
 
   <div class="chips" id="chips"></div>
@@ -104,7 +104,9 @@
     {key:"greek",    label:"Greek"},
     {key:"accent",   label:"Accents"},
     {key:"operator", label:"Operators"},
+    {key:"relation", label:"Relations"},
     {key:"set",      label:"Set/Logic"},
+    {key:"number",   label:"Numbers"},
     {key:"robotics", label:"Robotics"}
   ];
   var state = {q:"", cat:""};
@@ -222,11 +224,37 @@
     }).join("");
   }
 
+  // ---- URL state (shareable searches) ----------------------------------
+  var CAT_KEYS = CATS.map(function(c){ return c.key; });
+  function readURL(){
+    try{
+      var p = new URLSearchParams(location.search);
+      if(p.has("q")) state.q = p.get("q");
+      if(p.has("cat") && CAT_KEYS.indexOf(p.get("cat")) !== -1) state.cat = p.get("cat");
+    }catch(e){}
+  }
+  function syncURL(){
+    try{
+      var p = new URLSearchParams();
+      if(state.q.trim()) p.set("q", state.q.trim());
+      if(state.cat) p.set("cat", state.cat);
+      var qs = p.toString();
+      history.replaceState(null, "", qs ? "?" + qs : location.pathname);
+    }catch(e){}
+  }
+
   // ---- events ----------------------------------------------------------
-  q.addEventListener("input", function(){ state.q = q.value; render(); });
+  q.addEventListener("input", function(){ state.q = q.value; render(); syncURL(); });
   chipsEl.addEventListener("click", function(e){
     var c = e.target.closest(".chip"); if(!c) return;
-    state.cat = c.getAttribute("data-cat"); renderChips(); render();
+    state.cat = c.getAttribute("data-cat"); renderChips(); render(); syncURL();
+  });
+  // keyboard: "/" focuses search, Esc clears it
+  document.addEventListener("keydown", function(e){
+    if(e.key === "/" && document.activeElement !== q){ e.preventDefault(); q.focus(); q.select(); }
+    else if(e.key === "Escape" && document.activeElement === q && q.value){
+      q.value = ""; state.q = ""; render(); syncURL();
+    }
   });
   results.addEventListener("click", function(e){
     var spk = e.target.closest(".spk");
@@ -238,6 +266,7 @@
   if(SYMBOLS.length === 0){
     results.innerHTML = '<div class="empty">data/symbols.js failed to load.</div>';
   } else {
+    readURL(); q.value = state.q;
     renderChips(); render(); q.focus();
   }
 })();

@@ -15,7 +15,7 @@ edit the data and regenerate.
   latex: "\\tau"         # LaTeX command
   unicode: "U+03C4"      # code point (informational)
   name: "Tau"            # canonical English-based name
-  category: greek        # greek | accent | operator | set | robotics
+  category: greek        # greek | accent | operator | relation | set | number | robotics
   say:                   # PRONUNCIATION CORE — field-agnostic
     ko: "타우"
     en: "TAW / TOW"
@@ -34,7 +34,13 @@ pip install pyyaml
 python scripts/generate.py
 ```
 
-3. Commit `data/symbols.yaml`, `README.md`, `README.ko.md`, `data/symbols.json` together.
+   `generate.py` validates every entry first — it fails with a clear message if a
+   `symbol`/`name`/`say` is missing, the `category` is unknown, or a symbol is duplicated.
+   `generate.py`는 먼저 각 항목을 검증합니다 — 필수 필드 누락, 잘못된 `category`,
+   기호 중복이 있으면 명확한 메시지와 함께 실패합니다.
+
+3. Commit `data/symbols.yaml`, `README.md`, `README.ko.md`, `data/symbols.json`,
+   `data/symbols.js` together.
 
 ## Pronunciation policy / 발음 정책
 
