@@ -4,13 +4,13 @@
 
 α가 "알파"라는 건 어디나 있습니다.  
 하지만 `q̇`를 회의에서 어떻게 읽는지, ξ가 "크사이"인지 "크시"인지, ∂가 "디"가 아니라 "파셜"인지 알려주는 곳은 거의 없습니다.  
-이 저장소가 그 빈틈을 로보틱스 · 제어 관점에서 채웁니다.
+이 저장소가 그 빈틈을 로보틱스 · 제어 · 머신러닝 관점에서 채웁니다.
 
 **🔎 검색 + 음성 사이트 → https://dbwls99706.github.io/notation-phonics/**
 
 > 🇬🇧 English: **[README.md](README.md)**
 
-각 항목은 두 레이어로 구성됩니다: **발음 코어**(분야 무관 — 어떻게 읽는가)와 **의미 레이어**(로보틱스에서 무엇을 뜻하는가, 헷갈리는 기호 주의).
+각 항목은 두 레이어로 구성됩니다: **발음 코어**(분야 무관 — 어떻게 읽는가)와 **의미 레이어**(로보틱스 · ML에서 무엇을 뜻하는가, 헷갈리는 기호 주의).
 
 _기여 환영 — [`data/symbols.yaml`](data/symbols.yaml)에 한 줄 추가하고 `python scripts/generate.py` 실행. [CONTRIBUTING.md](CONTRIBUTING.md) 참고._
 
@@ -22,6 +22,7 @@ _기여 환영 — [`data/symbols.yaml`](data/symbols.yaml)에 한 줄 추가하
 - [관계 · 비교](#relations--comparison)
 - [집합 · 논리](#set--logic)
 - [수 체계](#number-sets)
+- [확률 · 통계](#probability--statistics)
 - [로보틱스 · 리 이론](#robotics--lie-theory)
 
 ## 그리스 문자
@@ -98,7 +99,12 @@ _기여 환영 — [`data/symbols.yaml`](data/symbols.yaml)에 한 줄 추가하
 | ⊥ | `\perp` | perpendicular / orthogonal | 퍼프 / 수직 / 직교 | a⊥b = 'a와 b가 직교'; 직교여공간 V⊥ | — |
 | ∥ | `\parallel` | parallel | 패러렐 / 평행 | — | 노름 기호 ‖·‖와 혼동 주의 |
 | O(·) | `\mathcal{O}(\cdot)` | big-O | 빅 오 ('오' 아니라 '빅 오') | 점근 복잡도. O(n²) = '빅 오 엔 제곱' | 숫자 0이 아니라 대문자 O |
-| 𝔼[·] | `\mathbb{E}[\cdot]` | expectation | 기댓값 / 엑스펙테이션 / '이' | 𝔼[X] = '엑스의 기댓값' — 추정·강화학습 핵심 | — |
+| ∇θ | `\nabla_\theta` | gradient w.r.t. θ | 델 세타 / 세타에 대한 그래디언트 | 파라미터 θ에 대한 기울기 — 경사하강법 핵심 | 아래첨자가 미분 변수를 지정 (그냥 ∇와 구분) |
+| arg max / arg min | `\arg\max / \arg\min` | argmax / argmin | 아그 맥스 / 아그 민 | 함수를 최대/최소로 만드는 입력값 (값이 아니라 x*) | — |
+| ℓ | `\ell` | script ell | 엘 (필기체 l) | ℓ₂·ℓ₁ 노름의 'ℓ', 손실함수 ℓ(·) | 숫자 1, 대문자 I와 구분 |
+| ∗ | `\ast` | convolution | 합성곱 / 컨볼루션 / 애스터리스크 | (f∗g) = 'f 합성곱 g' — CNN·신호처리 | 위첨자 별 x*(최적·켤레)와 다름 |
+| δᵢⱼ | `\delta_{ij}` | Kronecker delta | 크로네커 델타 / '델타 아이 제이' | i=j이면 1, 아니면 0 — 단위행렬의 성분 | 디랙 델타 δ(x)와 다름 |
+| ∮ | `\oint` | contour integral | 선적분 / 폐곡선 적분 / 오인트 | 닫힌 경로 적분 — 전자기학·복소해석 | — |
 
 ## 관계 · 비교
 
@@ -119,6 +125,7 @@ _기여 환영 — [`data/symbols.yaml`](data/symbols.yaml)에 한 줄 추가하
 | ↦ | `\mapsto` | maps to | 맵스 투 / '...에 대응' | x↦x² = '엑스를 엑스 제곱에 대응'; 원소 수준 대응 | →는 집합 사이, ↦는 원소 사이 |
 | ⇒ | `\Rightarrow / \implies` | implies | 함의 / '...이면' / 임플라이즈 | — | — |
 | ⇔ | `\Leftrightarrow / \iff` | if and only if | 필요충분 / '...일 때만' / iff | — | — |
+| := | `\coloneqq` | colon-equals / defined as | 콜론 이퀄 / 정의된다 / 대입('갓') | 정의 또는 대입. x := x+1 = '엑스에 엑스+1을 대입' | ≜와 같은 '정의' 뜻으로도 쓰임 |
 
 ## 집합 · 논리
 
@@ -137,6 +144,7 @@ _기여 환영 — [`data/symbols.yaml`](data/symbols.yaml)에 한 줄 추가하
 | ¬ | `\neg / \lnot` | logical not | 부정 / 낫 / '...이 아니다' | — | — |
 | ∧ / ∨ | `\land / \lor` | logical and / or | 논리곱(그리고) / 논리합(또는) — '웨지' / '비' | — | ∧는 외적·쐐기곱, ∨는 vee 맵으로도 쓰임 |
 | ∴ / ∵ | `\therefore / \because` | therefore / because | 따라서 / 왜냐하면 | — | — |
+| ∉ | `\notin` | not an element of | 원소가 아니다 / 낫 인 | — | — |
 
 ## 수 체계
 
@@ -150,6 +158,18 @@ _기여 환영 — [`data/symbols.yaml`](data/symbols.yaml)에 한 줄 추가하
 | ℂ | `\mathbb{C}` | complex numbers | 복소수 / 씨(C) | — | — |
 | ℕ | `\mathbb{N}` | natural numbers | 자연수 / 엔(N) | — | — |
 | ℚ | `\mathbb{Q}` | rational numbers | 유리수 / 큐(Q) | 유리수 집합 (몫 quotient에서) | — |
+
+## 확률 · 통계
+
+<a id="probability--statistics"></a>
+
+| 기호 | LaTeX | 이름 | 읽는 법 | 로보틱스에서 / 의미 | 주의 |
+|---|---|---|---|---|---|
+| 𝔼[·] | `\mathbb{E}[\cdot]` | expectation | 기댓값 / 엑스펙테이션 / '이' | 𝔼[X] = '엑스의 기댓값' — 추정·강화학습 핵심 | — |
+| ℙ(·) | `\mathbb{P}(\cdot)` | probability | 확률 / '피' | ℙ(A) = '사건 A의 확률' | — |
+| 𝒩(μ,σ²) | `\mathcal{N}(\mu, \sigma^2)` | Normal / Gaussian | 정규분포 / 가우시안 / '엔 뮤 시그마제곱' | 평균 μ, 분산 σ²의 정규분포 | — |
+| 𝟙[·] | `\mathbb{1}[\cdot]` | indicator function | 지시함수 / 인디케이터 / '원 함수' | 조건이 참이면 1, 거짓이면 0 | — |
+| D_KL(P‖Q) | `D_{\mathrm{KL}}(P \,\|\, Q)` | KL divergence | 케이엘 다이버전스 / 쿨백-라이블러 발산 | 두 분포의 차이 — 'P에서 Q로의 발산' | 비대칭: D_KL(P‖Q) ≠ D_KL(Q‖P) |
 
 ## 로보틱스 · 리 이론
 

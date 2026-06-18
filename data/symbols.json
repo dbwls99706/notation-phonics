@@ -842,18 +842,109 @@
     }
   },
   {
-    "symbol": "𝔼[·]",
-    "latex": "\\mathbb{E}[\\cdot]",
-    "unicode": "U+1D53C",
-    "name": "expectation",
+    "symbol": "∇θ",
+    "latex": "\\nabla_\\theta",
+    "unicode": "—",
+    "name": "gradient w.r.t. θ",
     "category": "operator",
     "say": {
-      "ko": "기댓값 / 엑스펙테이션 / '이'",
-      "en": "expectation / expected value / 'E of'"
+      "ko": "델 세타 / 세타에 대한 그래디언트",
+      "en": "del theta / gradient with respect to θ"
     },
     "means": {
-      "ko": "𝔼[X] = '엑스의 기댓값' — 추정·강화학습 핵심",
-      "en": "𝔼[X] = 'expected value of X' — estimation & RL core"
+      "ko": "파라미터 θ에 대한 기울기 — 경사하강법 핵심",
+      "en": "gradient taken w.r.t. parameters θ — backbone of gradient descent"
+    },
+    "warn": {
+      "ko": "아래첨자가 미분 변수를 지정 (그냥 ∇와 구분)",
+      "en": "subscript names the variable differentiated against"
+    }
+  },
+  {
+    "symbol": "arg max / arg min",
+    "latex": "\\arg\\max / \\arg\\min",
+    "unicode": "—",
+    "name": "argmax / argmin",
+    "category": "operator",
+    "say": {
+      "ko": "아그 맥스 / 아그 민",
+      "en": "arg max / arg min"
+    },
+    "means": {
+      "ko": "함수를 최대/최소로 만드는 입력값 (값이 아니라 x*)",
+      "en": "the input that maximizes/minimizes — returns the argument x*, not the value"
+    }
+  },
+  {
+    "symbol": "ℓ",
+    "latex": "\\ell",
+    "unicode": "U+2113",
+    "name": "script ell",
+    "category": "operator",
+    "say": {
+      "ko": "엘 (필기체 l)",
+      "en": "ell (script l)"
+    },
+    "means": {
+      "ko": "ℓ₂·ℓ₁ 노름의 'ℓ', 손실함수 ℓ(·)",
+      "en": "the 'ℓ' in ℓ₂/ℓ₁ norms; also a loss ℓ(·)"
+    },
+    "warn": {
+      "ko": "숫자 1, 대문자 I와 구분",
+      "en": "distinct from the digit 1 and capital I"
+    }
+  },
+  {
+    "symbol": "∗",
+    "latex": "\\ast",
+    "unicode": "U+2217",
+    "name": "convolution",
+    "category": "operator",
+    "say": {
+      "ko": "합성곱 / 컨볼루션 / 애스터리스크",
+      "en": "convolution / asterisk"
+    },
+    "means": {
+      "ko": "(f∗g) = 'f 합성곱 g' — CNN·신호처리",
+      "en": "(f∗g) = 'f convolved with g' — CNNs & signal processing"
+    },
+    "warn": {
+      "ko": "위첨자 별 x*(최적·켤레)와 다름",
+      "en": "different from superscript star x* (optimal/conjugate)"
+    }
+  },
+  {
+    "symbol": "δᵢⱼ",
+    "latex": "\\delta_{ij}",
+    "unicode": "—",
+    "name": "Kronecker delta",
+    "category": "operator",
+    "say": {
+      "ko": "크로네커 델타 / '델타 아이 제이'",
+      "en": "Kronecker delta / 'delta i j'"
+    },
+    "means": {
+      "ko": "i=j이면 1, 아니면 0 — 단위행렬의 성분",
+      "en": "1 if i=j, else 0 — the entries of the identity matrix"
+    },
+    "warn": {
+      "ko": "디랙 델타 δ(x)와 다름",
+      "en": "different from the Dirac delta δ(x)"
+    }
+  },
+  {
+    "symbol": "∮",
+    "latex": "\\oint",
+    "unicode": "U+222E",
+    "name": "contour integral",
+    "category": "operator",
+    "say": {
+      "ko": "선적분 / 폐곡선 적분 / 오인트",
+      "en": "contour integral / closed integral / 'oint'"
+    },
+    "means": {
+      "ko": "닫힌 경로 적분 — 전자기학·복소해석",
+      "en": "integral over a closed loop — electromagnetics & complex analysis"
     }
   },
   {
@@ -1032,6 +1123,25 @@
     }
   },
   {
+    "symbol": ":=",
+    "latex": "\\coloneqq",
+    "unicode": "U+2254 (≔)",
+    "name": "colon-equals / defined as",
+    "category": "relation",
+    "say": {
+      "ko": "콜론 이퀄 / 정의된다 / 대입('갓')",
+      "en": "colon-equals / 'is defined as' / 'gets'"
+    },
+    "means": {
+      "ko": "정의 또는 대입. x := x+1 = '엑스에 엑스+1을 대입'",
+      "en": "definition or assignment. x := x+1 = 'x gets x plus 1'"
+    },
+    "warn": {
+      "ko": "≜와 같은 '정의' 뜻으로도 쓰임",
+      "en": "overlaps with ≜ for 'defined as'"
+    }
+  },
+  {
     "symbol": "∈",
     "latex": "\\in",
     "unicode": "U+2208",
@@ -1165,6 +1275,17 @@
     }
   },
   {
+    "symbol": "∉",
+    "latex": "\\notin",
+    "unicode": "U+2209",
+    "name": "not an element of",
+    "category": "set",
+    "say": {
+      "ko": "원소가 아니다 / 낫 인",
+      "en": "not an element of / not in"
+    }
+  },
+  {
     "symbol": "ℝ",
     "latex": "\\mathbb{R}",
     "unicode": "U+211D",
@@ -1244,6 +1365,85 @@
     "means": {
       "ko": "유리수 집합 (몫 quotient에서)",
       "en": "rationals (from 'quotient')"
+    }
+  },
+  {
+    "symbol": "𝔼[·]",
+    "latex": "\\mathbb{E}[\\cdot]",
+    "unicode": "U+1D53C",
+    "name": "expectation",
+    "category": "probability",
+    "say": {
+      "ko": "기댓값 / 엑스펙테이션 / '이'",
+      "en": "expectation / expected value / 'E of'"
+    },
+    "means": {
+      "ko": "𝔼[X] = '엑스의 기댓값' — 추정·강화학습 핵심",
+      "en": "𝔼[X] = 'expected value of X' — estimation & RL core"
+    }
+  },
+  {
+    "symbol": "ℙ(·)",
+    "latex": "\\mathbb{P}(\\cdot)",
+    "unicode": "U+2119",
+    "name": "probability",
+    "category": "probability",
+    "say": {
+      "ko": "확률 / '피'",
+      "en": "probability / 'P of'"
+    },
+    "means": {
+      "ko": "ℙ(A) = '사건 A의 확률'",
+      "en": "ℙ(A) = 'probability of event A'"
+    }
+  },
+  {
+    "symbol": "𝒩(μ,σ²)",
+    "latex": "\\mathcal{N}(\\mu, \\sigma^2)",
+    "unicode": "U+1D4A9",
+    "name": "Normal / Gaussian",
+    "category": "probability",
+    "say": {
+      "ko": "정규분포 / 가우시안 / '엔 뮤 시그마제곱'",
+      "en": "Normal / Gaussian / 'N of mu, sigma squared'"
+    },
+    "means": {
+      "ko": "평균 μ, 분산 σ²의 정규분포",
+      "en": "Normal distribution with mean μ and variance σ²"
+    }
+  },
+  {
+    "symbol": "𝟙[·]",
+    "latex": "\\mathbb{1}[\\cdot]",
+    "unicode": "U+1D7D9",
+    "name": "indicator function",
+    "category": "probability",
+    "say": {
+      "ko": "지시함수 / 인디케이터 / '원 함수'",
+      "en": "indicator function / 'one if'"
+    },
+    "means": {
+      "ko": "조건이 참이면 1, 거짓이면 0",
+      "en": "1 if the condition holds, else 0"
+    }
+  },
+  {
+    "symbol": "D_KL(P‖Q)",
+    "latex": "D_{\\mathrm{KL}}(P \\,\\|\\, Q)",
+    "unicode": "—",
+    "name": "KL divergence",
+    "category": "probability",
+    "say": {
+      "ko": "케이엘 다이버전스 / 쿨백-라이블러 발산",
+      "en": "K-L divergence / Kullback–Leibler divergence"
+    },
+    "means": {
+      "ko": "두 분포의 차이 — 'P에서 Q로의 발산'",
+      "en": "divergence between two distributions; reads 'KL of P from Q'"
+    },
+    "warn": {
+      "ko": "비대칭: D_KL(P‖Q) ≠ D_KL(Q‖P)",
+      "en": "asymmetric: D_KL(P‖Q) ≠ D_KL(Q‖P)"
     }
   },
   {

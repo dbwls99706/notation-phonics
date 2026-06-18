@@ -15,7 +15,7 @@ edit the data and regenerate.
   latex: "\\tau"         # LaTeX command
   unicode: "U+03C4"      # code point (informational)
   name: "Tau"            # canonical English-based name
-  category: greek        # greek | accent | operator | relation | set | number | robotics
+  category: greek        # greek | accent | operator | relation | set | number | probability | robotics
   say:                   # PRONUNCIATION CORE — field-agnostic
     ko: "타우"
     en: "TAW / TOW"
