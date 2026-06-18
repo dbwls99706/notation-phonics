@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>notation-phonics — say math &amp; robotics notation out loud</title>
+<meta name="description" content="Paste or type a symbol and hear how to read it. A pronunciation reference for Greek letters, accents, and operators, robotics-anchored. KO/EN." />
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c2330; --line:#2a3340;
+    --fg:#e6edf3; --muted:#9aa7b4; --accent:#5db0ff; --accent2:#7ee787;
+    --warn:#ffb86b; --chip:#21262d; --radius:14px;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#f7f9fc; --panel:#fff; --panel2:#f1f4f9; --line:#e2e8f0;
+      --fg:#1a2129; --muted:#5b6876; --accent:#1f6feb; --accent2:#1a7f37;
+      --warn:#b9770e; --chip:#eef2f7; }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",
+    "Apple SD Gothic Neo","Noto Sans KR",sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:920px;margin:0 auto;padding:28px 18px 64px}
+  header h1{font-size:1.5rem;margin:0 0 4px;letter-spacing:-.02em}
+  header p{color:var(--muted);margin:0 0 20px;font-size:.95rem;line-height:1.5}
+  header .gh{font-size:.85rem}
+  .searchbar{position:sticky;top:0;z-index:5;padding:14px 0;background:var(--bg)}
+  .searchbar input{width:100%;font-size:1.25rem;padding:16px 18px;border-radius:var(--radius);
+    border:1px solid var(--line);background:var(--panel);color:var(--fg);outline:none}
+  .searchbar input:focus{border-color:var(--accent)}
+  .hint{color:var(--muted);font-size:.8rem;margin:8px 2px 0}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+  .chip{font-size:.82rem;padding:6px 12px;border-radius:999px;border:1px solid var(--line);
+    background:var(--chip);color:var(--muted);cursor:pointer;user-select:none}
+  .chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+  .count{color:var(--muted);font-size:.8rem;margin:10px 2px 4px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:16px 18px;margin:12px 0;display:grid;grid-template-columns:84px 1fr;gap:8px 16px;align-items:start}
+  .glyph{font-size:2.4rem;line-height:1;grid-row:span 2;display:flex;align-items:center;
+    justify-content:center;min-height:64px;background:var(--panel2);border-radius:12px}
+  .top{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline}
+  .name{font-weight:600;font-size:1.05rem}
+  .latex{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82rem;color:var(--muted);
+    background:var(--chip);padding:2px 8px;border-radius:6px;cursor:pointer}
+  .cat{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .rows{grid-column:2;display:flex;flex-direction:column;gap:6px;margin-top:2px}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.95rem}
+  .lab{color:var(--muted);font-size:.78rem;min-width:84px;flex:0 0 auto}
+  .say{font-weight:500}
+  .means{color:var(--fg)}
+  .warn{color:var(--warn)}
+  .spk{border:1px solid var(--line);background:var(--panel2);color:var(--fg);border-radius:8px;
+    cursor:pointer;font-size:.78rem;padding:3px 9px;display:inline-flex;align-items:center;gap:5px}
+  .spk:hover{border-color:var(--accent)}
+  .spk[disabled]{opacity:.35;cursor:not-allowed}
+  .copybtn{border:none;background:none;color:var(--muted);cursor:pointer;font-size:.82rem}
+  .empty{color:var(--muted);text-align:center;padding:48px 0}
+  footer{color:var(--muted);font-size:.8rem;margin-top:32px;border-top:1px solid var(--line);padding-top:16px}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--accent);
+    color:#fff;padding:9px 16px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .2s;pointer-events:none}
+  .toast.show{opacity:1}
+  @media (max-width:520px){ .card{grid-template-columns:60px 1fr;gap:6px 12px}
+    .glyph{font-size:1.9rem;min-height:52px} .lab{min-width:64px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>notation-phonics</h1>
+    <p>Paste or type a symbol and hear how to read it — Greek letters, accents (ẋ, x̂),
+       operators (∇, ∂), robotics notation. 한국어 / English.<br>
+       기호를 붙여넣거나 검색하면 읽는 법과 음성을 알려줍니다.</p>
+    <p class="gh"><a href="https://github.com/dbwls99706/notation-phonics" target="_blank" rel="noopener">★ GitHub</a></p>
+  </header>
+
+  <div class="searchbar">
+    <input id="q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false"
+           placeholder="τ  ·  tau  ·  타우  ·  토크  ·  partial …" aria-label="Search symbols" />
+    <div class="hint">Tip: 기호(τ)·이름(tau)·한글 발음(타우)·뜻(torque) 무엇으로도 검색됩니다.</div>
+  </div>
+
+  <div class="chips" id="chips"></div>
+  <div class="count" id="count"></div>
+  <div id="results"></div>
+
+  <footer>
+    Audio uses your browser's built-in speech engine (Web Speech API) — Korean &amp; English voices,
+    no server, no API key. 음성은 브라우저 내장 엔진을 사용합니다.<br>
+    Data: <a href="https://github.com/dbwls99706/notation-phonics/blob/main/data/symbols.yaml" target="_blank" rel="noopener">symbols.yaml</a>
+    · code MIT, content CC-BY-4.0.
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="data/symbols.js"></script>
+<script>
+(function(){
+  "use strict";
+  var SYMBOLS = window.NOTATION_SYMBOLS || [];
+  var CATS = [
+    {key:"",         label:"All"},
+    {key:"greek",    label:"Greek"},
+    {key:"accent",   label:"Accents"},
+    {key:"operator", label:"Operators"},
+    {key:"set",      label:"Set/Logic"},
+    {key:"robotics", label:"Robotics"}
+  ];
+  var state = {q:"", cat:""};
+  var q = document.getElementById("q");
+  var results = document.getElementById("results");
+  var countEl = document.getElementById("count");
+  var chipsEl = document.getElementById("chips");
+  var toastEl = document.getElementById("toast");
+
+  // ---- speech ----------------------------------------------------------
+  var synth = window.speechSynthesis;
+  var voices = [];
+  function loadVoices(){ voices = synth ? synth.getVoices() : []; }
+  if (synth){ loadVoices(); if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = loadVoices; }
+  function pickVoice(lang){
+    var pref = voices.filter(function(v){ return v.lang && v.lang.toLowerCase().indexOf(lang)===0; });
+    return pref[0] || null;
+  }
+  function speakable(lang){ return !!synth && (voices.length===0 || pickVoice(lang)!==null); }
+  // strip parenthetical notes and take the first "/" variant, so we speak a clean phrase
+  function clean(text){
+    if(!text) return "";
+    return text.replace(/\([^)]*\)/g,"").split("/")[0].replace(/[~]/g,"").trim();
+  }
+  function speak(text, lang){
+    if(!synth || !text) return;
+    synth.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = lang === "ko" ? "ko-KR" : "en-US";
+    var v = pickVoice(lang); if(v) u.voice = v;
+    u.rate = 0.95;
+    synth.speak(u);
+  }
+
+  // ---- toast / copy ----------------------------------------------------
+  var toastTimer;
+  function toast(msg){
+    toastEl.textContent = msg; toastEl.classList.add("show");
+    clearTimeout(toastTimer); toastTimer = setTimeout(function(){ toastEl.classList.remove("show"); }, 1100);
+  }
+  function copy(text, what){
+    navigator.clipboard && navigator.clipboard.writeText(text).then(function(){ toast("Copied " + what); });
+  }
+
+  // ---- filtering -------------------------------------------------------
+  function haystack(s){
+    return [s.symbol, s.latex, s.name, s.category,
+      s.say&&s.say.ko, s.say&&s.say.en,
+      s.means&&s.means.ko, s.means&&s.means.en,
+      s.warn&&s.warn.ko, s.warn&&s.warn.en].filter(Boolean).join(" ").toLowerCase();
+  }
+  function filtered(){
+    var query = state.q.trim().toLowerCase();
+    return SYMBOLS.filter(function(s){
+      if(state.cat && s.category !== state.cat) return false;
+      if(!query) return true;
+      // exact glyph paste should always match
+      if(s.symbol && s.symbol.indexOf(state.q.trim()) !== -1) return true;
+      return haystack(s).indexOf(query) !== -1;
+    });
+  }
+
+  // ---- render ----------------------------------------------------------
+  function esc(t){ var d=document.createElement("div"); d.textContent=t==null?"":t; return d.innerHTML; }
+
+  function spkBtn(label, text, lang){
+    if(!text) return "";
+    var dis = speakable(lang) ? "" : "disabled";
+    return '<button class="spk" data-say="'+esc(text)+'" data-lang="'+lang+'" '+dis+'>🔊 '+label+'</button>';
+  }
+
+  function card(s){
+    var rows = "";
+    var sayKo = s.say && s.say.ko, sayEn = s.say && s.say.en;
+    if(sayKo || sayEn){
+      rows += '<div class="row"><span class="lab">읽는 법 KO</span>'
+            + '<span class="say">'+esc(sayKo||"—")+'</span>'
+            + spkBtn("KO", clean(sayKo), "ko") + '</div>';
+      rows += '<div class="row"><span class="lab">Say it EN</span>'
+            + '<span class="say">'+esc(sayEn||"—")+'</span>'
+            + spkBtn("EN", clean(s.name||sayEn), "en") + '</div>';
+    }
+    var means = (s.means&&(s.means.ko||s.means.en));
+    if(means){
+      var m = [s.means.ko, s.means.en].filter(Boolean).join("  ·  ");
+      rows += '<div class="row"><span class="lab">의미</span><span class="means">'+esc(m)+'</span></div>';
+    }
+    var warn = (s.warn&&(s.warn.ko||s.warn.en));
+    if(warn){
+      var w = [s.warn.ko, s.warn.en].filter(Boolean).join("  ·  ");
+      rows += '<div class="row"><span class="lab">주의</span><span class="warn">⚠ '+esc(w)+'</span></div>';
+    }
+    var latex = s.latex ? '<span class="latex" data-copy="'+esc(s.latex)+'" title="Copy LaTeX">'+esc(s.latex)+'</span>' : "";
+    return '<div class="card">'
+      + '<div class="glyph" data-copy="'+esc(s.symbol)+'" title="Copy symbol">'+esc(s.symbol)+'</div>'
+      + '<div class="top"><span class="name">'+esc(s.name)+'</span>'+latex
+      + '<span class="cat">'+esc(s.category)+'</span></div>'
+      + '<div class="rows">'+rows+'</div>'
+      + '</div>';
+  }
+
+  function render(){
+    var list = filtered();
+    countEl.textContent = list.length + " / " + SYMBOLS.length;
+    if(list.length === 0){
+      results.innerHTML = '<div class="empty">No match. 기호를 직접 붙여넣어 보세요.</div>';
+      return;
+    }
+    results.innerHTML = list.map(card).join("");
+  }
+
+  function renderChips(){
+    chipsEl.innerHTML = CATS.map(function(c){
+      return '<span class="chip'+(state.cat===c.key?' active':'')+'" data-cat="'+c.key+'">'+c.label+'</span>';
+    }).join("");
+  }
+
+  // ---- events ----------------------------------------------------------
+  q.addEventListener("input", function(){ state.q = q.value; render(); });
+  chipsEl.addEventListener("click", function(e){
+    var c = e.target.closest(".chip"); if(!c) return;
+    state.cat = c.getAttribute("data-cat"); renderChips(); render();
+  });
+  results.addEventListener("click", function(e){
+    var spk = e.target.closest(".spk");
+    if(spk && !spk.hasAttribute("disabled")){ speak(spk.getAttribute("data-say"), spk.getAttribute("data-lang")); return; }
+    var cp = e.target.closest("[data-copy]");
+    if(cp){ copy(cp.getAttribute("data-copy"), cp.classList.contains("glyph") ? "symbol" : "LaTeX"); }
+  });
+
+  if(SYMBOLS.length === 0){
+    results.innerHTML = '<div class="empty">data/symbols.js failed to load.</div>';
+  } else {
+    renderChips(); render(); q.focus();
+  }
+})();
+</script>
+</body>
+</html>

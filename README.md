@@ -6,6 +6,8 @@ Plenty of references tell you α is "alpha."
 Almost none tell you how to read `q̇` aloud in a meeting, whether ξ is "ksy" or "zy," or that ∂ is "partial," not "dee."  
 This repo fills that gap, with a robotics / control bias.
 
+**🔎 Live search + audio → https://dbwls99706.github.io/notation-phonics/**
+
 > 🇰🇷 한국어: **[README.ko.md](README.ko.md)**
 
 Two layers per entry: a **pronunciation core** (field-agnostic — how to say it) and a **meaning layer** (what it denotes in robotics, plus look-alikes to avoid).
