@@ -39,8 +39,9 @@
   .count{color:var(--muted);font-size:.8rem;margin:10px 2px 4px}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
     padding:16px 18px;margin:12px 0;display:grid;grid-template-columns:84px 1fr;gap:8px 16px;align-items:start}
-  .glyph{font-size:2.4rem;line-height:1;grid-row:span 2;display:flex;align-items:center;
-    justify-content:center;min-height:64px;background:var(--panel2);border-radius:12px}
+  .glyph{font-size:2.4rem;line-height:1.05;grid-row:span 2;display:flex;align-items:center;
+    justify-content:center;min-height:64px;padding:4px 6px;overflow:hidden;text-align:center;
+    overflow-wrap:anywhere;word-break:break-word;background:var(--panel2);border-radius:12px}
   .top{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline}
   .name{font-weight:600;font-size:1.05rem}
   .latex{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82rem;color:var(--muted);
@@ -175,6 +176,16 @@
   // ---- render ----------------------------------------------------------
   function esc(t){ var d=document.createElement("div"); d.textContent=t==null?"":t; return d.innerHTML; }
 
+  // shrink the glyph font for multi-character symbols so they never overflow the box
+  function glyphSize(sym){
+    var n = Array.from(String(sym || "")).length;
+    if(n <= 2) return "";       // default 2.4rem (CSS)
+    if(n <= 3) return "1.7rem";
+    if(n <= 5) return "1.25rem";
+    if(n <= 9) return "1rem";
+    return "0.8rem";
+  }
+
   function spkBtn(label, text, lang){
     if(!text) return "";
     var dis = speakable(lang) ? "" : "disabled";
@@ -203,8 +214,10 @@
       rows += '<div class="row"><span class="lab">주의</span><span class="warn">⚠ '+esc(w)+'</span></div>';
     }
     var latex = s.latex ? '<span class="latex" data-copy="'+esc(s.latex)+'" title="Copy LaTeX">'+esc(s.latex)+'</span>' : "";
+    var gs = glyphSize(s.symbol);
+    var gStyle = gs ? ' style="font-size:'+gs+'"' : '';
     return '<div class="card">'
-      + '<div class="glyph" data-copy="'+esc(s.symbol)+'" title="Copy symbol">'+esc(s.symbol)+'</div>'
+      + '<div class="glyph"'+gStyle+' data-copy="'+esc(s.symbol)+'" title="Copy symbol">'+esc(s.symbol)+'</div>'
       + '<div class="top"><span class="name">'+esc(s.name)+'</span>'+latex
       + '<span class="cat">'+esc(s.category)+'</span></div>'
       + '<div class="rows">'+rows+'</div>'
