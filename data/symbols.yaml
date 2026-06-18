@@ -824,7 +824,7 @@
   unicode: "—"
   name: "Special Euclidean group"
   category: robotics
-  say: { ko: "에스 이 쓰리", en: "S-E three" }
+  say: { ko: "에스 이 쓰리 / 스페셜 유클리디언 쓰리", en: "S-E three / 'special Euclidean three'" }
   means: { ko: "강체 변환(회전+병진)의 군", en: "group of rigid-body transforms (rotation + translation)" }
 
 - symbol: "SO(3)"
@@ -832,7 +832,7 @@
   unicode: "—"
   name: "Special Orthogonal group"
   category: robotics
-  say: { ko: "에스 오 쓰리", en: "S-O three" }
+  say: { ko: "에스 오 쓰리 / 스페셜 오쏘고날 쓰리", en: "S-O three / 'special orthogonal three'" }
   means: { ko: "3D 회전군", en: "group of 3D rotations" }
 
 - symbol: "𝔰𝔬(3) / so(3)"
@@ -840,7 +840,7 @@
   unicode: "U+1D530…"
   name: "Lie algebra so(3)"
   category: robotics
-  say: { ko: "스몰 에스 오 쓰리 / 리 대수 에스오쓰리", en: "little S-O three / Lie algebra S-O three" }
+  say: { ko: "스몰 에스 오 쓰리 / 에스오쓰리 / 리 대수 에스오쓰리", en: "small S-O three / 'so three' / Lie algebra S-O three" }
   means: { ko: "반대칭(skew-symmetric) 행렬 공간", en: "space of skew-symmetric matrices" }
   warn: { ko: "대문자 SO(3)와 다름 — 군 vs 대수", en: "distinct from SO(3): the group vs its algebra" }
 
@@ -892,7 +892,7 @@
   category: robotics
   say: { ko: "라그랑지안 / (딥러닝) 로스", en: "Lagrangian / (deep learning) loss" }
   means: { ko: "ℒ=T−V (동역학) 또는 손실함수(ML)", en: "ℒ=T−V in dynamics, or the loss function in ML" }
-  warn: { ko: "필기체 ℒ — 라플라스 변환·우도(likelihood)로도 쓰임", en: "script ℒ also denotes the Laplace transform or likelihood" }
+  warn: { ko: "필기체 ℒ — 라플라스 변환 연산자 ℒ{·}·우도(likelihood)로도 쓰임", en: "script ℒ also denotes the Laplace transform operator ℒ{·} or likelihood" }
 
 - symbol: "ℋ"
   latex: "\\mathcal{H}"

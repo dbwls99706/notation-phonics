@@ -1454,8 +1454,8 @@ window.NOTATION_SYMBOLS = [
     "name": "Special Euclidean group",
     "category": "robotics",
     "say": {
-      "ko": "에스 이 쓰리",
-      "en": "S-E three"
+      "ko": "에스 이 쓰리 / 스페셜 유클리디언 쓰리",
+      "en": "S-E three / 'special Euclidean three'"
     },
     "means": {
       "ko": "강체 변환(회전+병진)의 군",
@@ -1469,8 +1469,8 @@ window.NOTATION_SYMBOLS = [
     "name": "Special Orthogonal group",
     "category": "robotics",
     "say": {
-      "ko": "에스 오 쓰리",
-      "en": "S-O three"
+      "ko": "에스 오 쓰리 / 스페셜 오쏘고날 쓰리",
+      "en": "S-O three / 'special orthogonal three'"
     },
     "means": {
       "ko": "3D 회전군",
@@ -1484,8 +1484,8 @@ window.NOTATION_SYMBOLS = [
     "name": "Lie algebra so(3)",
     "category": "robotics",
     "say": {
-      "ko": "스몰 에스 오 쓰리 / 리 대수 에스오쓰리",
-      "en": "little S-O three / Lie algebra S-O three"
+      "ko": "스몰 에스 오 쓰리 / 에스오쓰리 / 리 대수 에스오쓰리",
+      "en": "small S-O three / 'so three' / Lie algebra S-O three"
     },
     "means": {
       "ko": "반대칭(skew-symmetric) 행렬 공간",
@@ -1590,8 +1590,8 @@ window.NOTATION_SYMBOLS = [
       "en": "ℒ=T−V in dynamics, or the loss function in ML"
     },
     "warn": {
-      "ko": "필기체 ℒ — 라플라스 변환·우도(likelihood)로도 쓰임",
-      "en": "script ℒ also denotes the Laplace transform or likelihood"
+      "ko": "필기체 ℒ — 라플라스 변환 연산자 ℒ{·}·우도(likelihood)로도 쓰임",
+      "en": "script ℒ also denotes the Laplace transform operator ℒ{·} or likelihood"
     }
   },
   {
