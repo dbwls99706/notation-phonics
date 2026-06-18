@@ -23,9 +23,14 @@ CATEGORIES = [
     ("greek", "Greek letters", "그리스 문자"),
     ("accent", "Accents & decorations", "악센트 · 장식 기호"),
     ("operator", "Operators", "연산자"),
+    ("relation", "Relations & comparison", "관계 · 비교"),
     ("set", "Set & logic", "집합 · 논리"),
+    ("number", "Number sets", "수 체계"),
+    ("probability", "Probability & statistics", "확률 · 통계"),
     ("robotics", "Robotics & Lie theory", "로보틱스 · 리 이론"),
 ]
+
+VALID_CATEGORIES = {key for key, _, _ in CATEGORIES}
 
 HEADERS = {
     "en": ["Symbol", "LaTeX", "Name", "Say it", "In robotics / meaning", "Watch out"],
@@ -70,11 +75,11 @@ def build_readme(symbols: list[dict], lang: str) -> str:
             "Plenty of references tell you α is \"alpha.\"  \n"
             "Almost none tell you how to read `q̇` aloud in a meeting, whether ξ is \"ksy\" "
             "or \"zy,\" or that ∂ is \"partial,\" not \"dee.\"  \n"
-            "This repo fills that gap, with a robotics / control bias.\n\n"
+            "This repo fills that gap, with a robotics / control / ML bias.\n\n"
             "**🔎 Live search + audio → https://dbwls99706.github.io/notation-phonics/**\n\n"
             "> 🇰🇷 한국어: **[README.ko.md](README.ko.md)**\n\n"
             "Two layers per entry: a **pronunciation core** (field-agnostic — how to say it) "
-            "and a **meaning layer** (what it denotes in robotics, plus look-alikes to avoid).\n\n"
+            "and a **meaning layer** (what it denotes in robotics & ML, plus look-alikes to avoid).\n\n"
             "_Contributions welcome — add a line to [`data/symbols.yaml`](data/symbols.yaml) "
             "and run `python scripts/generate.py`. See [CONTRIBUTING.md](CONTRIBUTING.md)._\n"
         )
@@ -86,11 +91,11 @@ def build_readme(symbols: list[dict], lang: str) -> str:
             "α가 \"알파\"라는 건 어디나 있습니다.  \n"
             "하지만 `q̇`를 회의에서 어떻게 읽는지, ξ가 \"크사이\"인지 \"크시\"인지, ∂가 \"디\"가 "
             "아니라 \"파셜\"인지 알려주는 곳은 거의 없습니다.  \n"
-            "이 저장소가 그 빈틈을 로보틱스 · 제어 관점에서 채웁니다.\n\n"
+            "이 저장소가 그 빈틈을 로보틱스 · 제어 · 머신러닝 관점에서 채웁니다.\n\n"
             "**🔎 검색 + 음성 사이트 → https://dbwls99706.github.io/notation-phonics/**\n\n"
             "> 🇬🇧 English: **[README.md](README.md)**\n\n"
             "각 항목은 두 레이어로 구성됩니다: **발음 코어**(분야 무관 — 어떻게 읽는가)와 "
-            "**의미 레이어**(로보틱스에서 무엇을 뜻하는가, 헷갈리는 기호 주의).\n\n"
+            "**의미 레이어**(로보틱스 · ML에서 무엇을 뜻하는가, 헷갈리는 기호 주의).\n\n"
             "_기여 환영 — [`data/symbols.yaml`](data/symbols.yaml)에 한 줄 추가하고 "
             "`python scripts/generate.py` 실행. [CONTRIBUTING.md](CONTRIBUTING.md) 참고._\n"
         )
@@ -122,10 +127,40 @@ def build_readme(symbols: list[dict], lang: str) -> str:
     return intro + "\n" + toc_block + "\n\n" + "\n\n".join(sections) + "\n" + footer
 
 
+def validate(symbols: list) -> None:
+    """Fail loudly on malformed entries so bad contributions never reach the docs."""
+    errors: list[str] = []
+    seen: dict[str, int] = {}
+    for i, e in enumerate(symbols):
+        where = f"entry #{i + 1}"
+        if not isinstance(e, dict):
+            errors.append(f"{where}: not a mapping")
+            continue
+        sym = e.get("symbol")
+        if not sym:
+            errors.append(f"{where}: missing 'symbol'")
+        else:
+            where = f"'{sym}'"
+            if sym in seen:
+                errors.append(f"{where}: duplicate symbol (also entry #{seen[sym] + 1})")
+            seen[sym] = i
+        if not e.get("name"):
+            errors.append(f"{where}: missing 'name'")
+        cat = e.get("category")
+        if cat not in VALID_CATEGORIES:
+            errors.append(f"{where}: category {cat!r} not in {sorted(VALID_CATEGORIES)}")
+        say = e.get("say")
+        if not (isinstance(say, dict) and (say.get("ko") or say.get("en"))):
+            errors.append(f"{where}: 'say' must provide at least 'ko' or 'en'")
+    if errors:
+        sys.exit("symbols.yaml validation failed:\n  - " + "\n  - ".join(errors))
+
+
 def main() -> None:
     symbols = yaml.safe_load(DATA.read_text(encoding="utf-8"))
     if not isinstance(symbols, list):
         sys.exit("symbols.yaml must be a list of entries")
+    validate(symbols)
 
     (ROOT / "README.md").write_text(build_readme(symbols, "en"), encoding="utf-8")
     (ROOT / "README.ko.md").write_text(build_readme(symbols, "ko"), encoding="utf-8")

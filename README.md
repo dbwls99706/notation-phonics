@@ -4,13 +4,13 @@
 
 Plenty of references tell you α is "alpha."  
 Almost none tell you how to read `q̇` aloud in a meeting, whether ξ is "ksy" or "zy," or that ∂ is "partial," not "dee."  
-This repo fills that gap, with a robotics / control bias.
+This repo fills that gap, with a robotics / control / ML bias.
 
 **🔎 Live search + audio → https://dbwls99706.github.io/notation-phonics/**
 
 > 🇰🇷 한국어: **[README.ko.md](README.ko.md)**
 
-Two layers per entry: a **pronunciation core** (field-agnostic — how to say it) and a **meaning layer** (what it denotes in robotics, plus look-alikes to avoid).
+Two layers per entry: a **pronunciation core** (field-agnostic — how to say it) and a **meaning layer** (what it denotes in robotics & ML, plus look-alikes to avoid).
 
 _Contributions welcome — add a line to [`data/symbols.yaml`](data/symbols.yaml) and run `python scripts/generate.py`. See [CONTRIBUTING.md](CONTRIBUTING.md)._
 
@@ -19,7 +19,10 @@ _Contributions welcome — add a line to [`data/symbols.yaml`](data/symbols.yaml
 - [Greek letters](#greek-letters)
 - [Accents & decorations](#accents--decorations)
 - [Operators](#operators)
+- [Relations & comparison](#relations--comparison)
 - [Set & logic](#set--logic)
+- [Number sets](#number-sets)
+- [Probability & statistics](#probability--statistics)
 - [Robotics & Lie theory](#robotics--lie-theory)
 
 ## Greek letters
@@ -87,6 +90,42 @@ _Contributions welcome — add a line to [`data/symbols.yaml`](data/symbols.yaml
 | ⊕ | `\oplus` | direct sum / XOR | direct sum / o-plus / (logic) XOR | — | — |
 | × | `\times` | cross | cross / times | cross product | — |
 | · | `\cdot` | dot | dot | dot product | — |
+| ∘ | `\circ` | composition / ring | (function) composition / ring / 'of' | function composition. f∘g = 'f after g' / 'f composed with g' | not the dot product (·) nor degree (°) |
+| ⊙ | `\odot` | Hadamard / elementwise product | Hadamard product / elementwise product / o-dot | elementwise multiply — common in deep learning | — |
+| ⟨·,·⟩ | `\langle \cdot, \cdot \rangle` | inner product / angle brackets | inner product / 'angle brackets' / 'x y inner product' | inner product ⟨x,y⟩; also Dirac bra-ket | — |
+| ∇² / Δ | `\nabla^2 / \Delta` | Laplacian | Laplacian / del squared / nabla squared | Laplace operator (∇·∇) | the Δ form collides with delta (difference) — disambiguate by context |
+| ⌊x⌋ / ⌈x⌉ | `\lfloor x \rfloor / \lceil x \rceil` | floor / ceiling | floor of x / ceiling of x | round down / round up to an integer | — |
+| A† | `A^\dagger` | dagger / conjugate transpose | A dagger / A Hermitian (conjugate) transpose | conjugate (Hermitian) transpose; sometimes the pseudoinverse | equals plain transpose xᵀ for real matrices |
+| ⊥ | `\perp` | perpendicular / orthogonal | perp / perpendicular / orthogonal to | a⊥b = 'a perp b'; orthogonal complement V⊥ | — |
+| ∥ | `\parallel` | parallel | parallel to | — | do not confuse with the norm ‖·‖ |
+| O(·) | `\mathcal{O}(\cdot)` | big-O | big-O / order of | asymptotic complexity. O(n²) = 'big-O of n squared' | the letter O, not zero |
+| ∇θ | `\nabla_\theta` | gradient w.r.t. θ | del theta / gradient with respect to θ | gradient taken w.r.t. parameters θ — backbone of gradient descent | subscript names the variable differentiated against |
+| arg max / arg min | `\arg\max / \arg\min` | argmax / argmin | arg max / arg min | the input that maximizes/minimizes — returns the argument x*, not the value | — |
+| ℓ | `\ell` | script ell | ell (script l) | the 'ℓ' in ℓ₂/ℓ₁ norms; also a loss ℓ(·) | distinct from the digit 1 and capital I |
+| ∗ | `\ast` | convolution | convolution / asterisk | (f∗g) = 'f convolved with g' — CNNs & signal processing | different from superscript star x* (optimal/conjugate) |
+| δᵢⱼ | `\delta_{ij}` | Kronecker delta | Kronecker delta / 'delta i j' | 1 if i=j, else 0 — the entries of the identity matrix | different from the Dirac delta δ(x) |
+| ∮ | `\oint` | contour integral | contour integral / closed integral / 'oint' | integral over a closed loop — electromagnetics & complex analysis | — |
+
+## Relations & comparison
+
+<a id="relations--comparison"></a>
+
+| Symbol | LaTeX | Name | Say it | In robotics / meaning | Watch out |
+|---|---|---|---|---|---|
+| ≈ | `\approx` | approximately equal | approximately equal / approx | — | — |
+| ≃ / ≅ | `\simeq / \cong` | isomorphic / congruent | isomorphic to / congruent to | ≅ often reads 'isomorphic to' for groups/spaces | — |
+| ≡ | `\equiv` | identical / equivalent | identically equal / equivalent / congruent (mod) | a≡b (mod n) = 'a is congruent to b modulo n' | — |
+| ∼ | `\sim` | tilde relation | tilde / 'distributed as' / 'on the order of' | X∼N(0,1) = 'X is distributed as standard normal' | — |
+| ≠ | `\neq` | not equal | not equal to | — | — |
+| ≤ / ≥ | `\leq / \geq` | less than or equal / greater than or equal | less than or equal / greater than or equal | — | — |
+| ≪ / ≫ | `\ll / \gg` | much less / much greater than | much less than / much greater than | — | — |
+| ± / ∓ | `\pm / \mp` | plus-minus / minus-plus | plus or minus / minus or plus | — | — |
+| ∞ | `\infty` | infinity | infinity | ℓ∞ norm = 'L-infinity norm' / max norm | — |
+| → | `\to / \rightarrow` | to / arrow | 'to' / 'goes to' / 'approaches' | f: A→B = 'f from A to B'; xₙ→x = 'converges to' | different from ↦ (maps to): → is between sets |
+| ↦ | `\mapsto` | maps to | maps to | x↦x² = 'x maps to x squared'; element-level rule | → relates sets; ↦ relates elements |
+| ⇒ | `\Rightarrow / \implies` | implies | implies / 'if … then' | — | — |
+| ⇔ | `\Leftrightarrow / \iff` | if and only if | if and only if / iff | — | — |
+| := | `\coloneqq` | colon-equals / defined as | colon-equals / 'is defined as' / 'gets' | definition or assignment. x := x+1 = 'x gets x plus 1' | overlaps with ≜ for 'defined as' |
 
 ## Set & logic
 
@@ -99,6 +138,38 @@ _Contributions welcome — add a line to [`data/symbols.yaml`](data/symbols.yaml
 | ∃ | `\exists` | there exists | there exists | — | — |
 | ≜ | `\triangleq` | defined as | defined as / is defined to be | — | — |
 | ∝ | `\propto` | proportional to | proportional to | — | — |
+| ∅ | `\emptyset / \varnothing` | empty set | empty set / the null set | — | not Greek φ (phi) nor the digit 0 |
+| ∪ / ∩ | `\cup / \cap` | union / intersection | union / intersection ('cup' / 'cap') | — | — |
+| ⊂ / ⊆ | `\subset / \subseteq` | subset | subset of / subset of or equal to | — | — |
+| ¬ | `\neg / \lnot` | logical not | not / negation | — | — |
+| ∧ / ∨ | `\land / \lor` | logical and / or | logical and / logical or ('wedge' / 'vee') | — | ∧ also the wedge product; ∨ also the vee map |
+| ∴ / ∵ | `\therefore / \because` | therefore / because | therefore / because | — | — |
+| ∉ | `\notin` | not an element of | not an element of / not in | — | — |
+
+## Number sets
+
+<a id="number-sets"></a>
+
+| Symbol | LaTeX | Name | Say it | In robotics / meaning | Watch out |
+|---|---|---|---|---|---|
+| ℝ | `\mathbb{R}` | real numbers | the reals / real numbers / 'R' | set of reals. ℝⁿ = 'R n', n-dimensional real space | — |
+| ℝⁿ / ℝᵐˣⁿ | `\mathbb{R}^n / \mathbb{R}^{m\times n}` | real vector / matrix space | R n / R m by n | n-vectors / m×n matrices — the workhorse dimension tag | — |
+| ℤ | `\mathbb{Z}` | integers | the integers / 'Z' | integers (from German 'Zahlen') | — |
+| ℂ | `\mathbb{C}` | complex numbers | the complexes / complex numbers / 'C' | — | — |
+| ℕ | `\mathbb{N}` | natural numbers | the naturals / natural numbers / 'N' | — | — |
+| ℚ | `\mathbb{Q}` | rational numbers | the rationals / rational numbers / 'Q' | rationals (from 'quotient') | — |
+
+## Probability & statistics
+
+<a id="probability--statistics"></a>
+
+| Symbol | LaTeX | Name | Say it | In robotics / meaning | Watch out |
+|---|---|---|---|---|---|
+| 𝔼[·] | `\mathbb{E}[\cdot]` | expectation | expectation / expected value / 'E of' | 𝔼[X] = 'expected value of X' — estimation & RL core | — |
+| ℙ(·) | `\mathbb{P}(\cdot)` | probability | probability / 'P of' | ℙ(A) = 'probability of event A' | — |
+| 𝒩(μ,σ²) | `\mathcal{N}(\mu, \sigma^2)` | Normal / Gaussian | Normal / Gaussian / 'N of mu, sigma squared' | Normal distribution with mean μ and variance σ² | — |
+| 𝟙[·] | `\mathbb{1}[\cdot]` | indicator function | indicator function / 'one if' | 1 if the condition holds, else 0 | — |
+| D_KL(P‖Q) | `D_{\mathrm{KL}}(P \,\|\, Q)` | KL divergence | K-L divergence / Kullback–Leibler divergence | divergence between two distributions; reads 'KL of P from Q' | asymmetric: D_KL(P‖Q) ≠ D_KL(Q‖P) |
 
 ## Robotics & Lie theory
 
@@ -114,6 +185,8 @@ _Contributions welcome — add a line to [`data/symbols.yaml`](data/symbols.yaml
 | J | `J` | Jacobian | Jacobian (juh-KOH-bee-un) | maps joint velocities to end-effector velocities | — |
 | ⊞ / ⊟ | `\boxplus / \boxminus` | boxplus / boxminus | boxplus / boxminus | manifold-aware add/subtract (state estimation) | — |
 | ᵃRᵦ | `{}^{a}R_{b}` | frame rotation | a R b / 'rotation of frame b expressed in a' | superscript = reference frame, subscript = target frame | sub/superscript convention varies by team/textbook |
+| ℒ | `\mathcal{L}` | Lagrangian / loss | Lagrangian / (deep learning) loss | ℒ=T−V in dynamics, or the loss function in ML | script ℒ also denotes the Laplace transform or likelihood |
+| ℋ | `\mathcal{H}` | Hamiltonian / Hilbert space | Hamiltonian / Hilbert space | Hamiltonian in optimal control/dynamics; Hilbert space in analysis | — |
 
 ---
 
