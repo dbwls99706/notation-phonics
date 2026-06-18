@@ -177,15 +177,15 @@ _기여 환영 — [`data/symbols.yaml`](data/symbols.yaml)에 한 줄 추가하
 
 | 기호 | LaTeX | 이름 | 읽는 법 | 로보틱스에서 / 의미 | 주의 |
 |---|---|---|---|---|---|
-| SE(3) | `SE(3)` | Special Euclidean group | 에스 이 쓰리 | 강체 변환(회전+병진)의 군 | — |
-| SO(3) | `SO(3)` | Special Orthogonal group | 에스 오 쓰리 | 3D 회전군 | — |
-| 𝔰𝔬(3) / so(3) | `\mathfrak{so}(3)` | Lie algebra so(3) | 스몰 에스 오 쓰리 / 리 대수 에스오쓰리 | 반대칭(skew-symmetric) 행렬 공간 | 대문자 SO(3)와 다름 — 군 vs 대수 |
+| SE(3) | `SE(3)` | Special Euclidean group | 에스 이 쓰리 / 스페셜 유클리디언 쓰리 | 강체 변환(회전+병진)의 군 | — |
+| SO(3) | `SO(3)` | Special Orthogonal group | 에스 오 쓰리 / 스페셜 오쏘고날 쓰리 | 3D 회전군 | — |
+| 𝔰𝔬(3) / so(3) | `\mathfrak{so}(3)` | Lie algebra so(3) | 스몰 에스 오 쓰리 / 에스오쓰리 / 리 대수 에스오쓰리 | 반대칭(skew-symmetric) 행렬 공간 | 대문자 SO(3)와 다름 — 군 vs 대수 |
 | [ω]× / ω∧ | `[\omega]_\times / \omega^\wedge` | skew / hat map | 스큐 / 햇 맵 / 오메가 크로스 행렬 | 벡터 → 반대칭 행렬 변환 (so(3)) | — |
 | X∨ | `X^\vee` | vee map | 엑스 vee 맵 | 반대칭 행렬 → 벡터 (햇의 역연산) | — |
 | J | `J` | Jacobian | 자코비안 | 관절 속도 ↔ 말단 속도 사상 | — |
 | ⊞ / ⊟ | `\boxplus / \boxminus` | boxplus / boxminus | 박스플러스 / 박스마이너스 | 매니폴드 위의 가감 연산 (상태추정) | — |
 | ᵃRᵦ | `{}^{a}R_{b}` | frame rotation | 에이 알 비 / 'b 좌표계를 a 기준으로' | 위첨자=기준 좌표계, 아래첨자=대상 좌표계 | 팀마다 위/아래 첨자 관습이 반대일 수 있음 |
-| ℒ | `\mathcal{L}` | Lagrangian / loss | 라그랑지안 / (딥러닝) 로스 | ℒ=T−V (동역학) 또는 손실함수(ML) | 필기체 ℒ — 라플라스 변환·우도(likelihood)로도 쓰임 |
+| ℒ | `\mathcal{L}` | Lagrangian / loss | 라그랑지안 / (딥러닝) 로스 | ℒ=T−V (동역학) 또는 손실함수(ML) | 필기체 ℒ — 라플라스 변환 연산자 ℒ{·}·우도(likelihood)로도 쓰임 |
 | ℋ | `\mathcal{H}` | Hamiltonian / Hilbert space | 해밀토니안 / 힐베르트 공간 | 최적제어·동역학의 해밀토니안; 함수해석의 힐베르트 공간 | — |
 
 ---

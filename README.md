@@ -177,15 +177,15 @@ _Contributions welcome — add a line to [`data/symbols.yaml`](data/symbols.yaml
 
 | Symbol | LaTeX | Name | Say it | In robotics / meaning | Watch out |
 |---|---|---|---|---|---|
-| SE(3) | `SE(3)` | Special Euclidean group | S-E three | group of rigid-body transforms (rotation + translation) | — |
-| SO(3) | `SO(3)` | Special Orthogonal group | S-O three | group of 3D rotations | — |
-| 𝔰𝔬(3) / so(3) | `\mathfrak{so}(3)` | Lie algebra so(3) | little S-O three / Lie algebra S-O three | space of skew-symmetric matrices | distinct from SO(3): the group vs its algebra |
+| SE(3) | `SE(3)` | Special Euclidean group | S-E three / 'special Euclidean three' | group of rigid-body transforms (rotation + translation) | — |
+| SO(3) | `SO(3)` | Special Orthogonal group | S-O three / 'special orthogonal three' | group of 3D rotations | — |
+| 𝔰𝔬(3) / so(3) | `\mathfrak{so}(3)` | Lie algebra so(3) | small S-O three / 'so three' / Lie algebra S-O three | space of skew-symmetric matrices | distinct from SO(3): the group vs its algebra |
 | [ω]× / ω∧ | `[\omega]_\times / \omega^\wedge` | skew / hat map | skew of omega / omega hat / omega cross-matrix | vector → skew-symmetric matrix (so(3)) | — |
 | X∨ | `X^\vee` | vee map | X vee | skew-symmetric matrix → vector (inverse of hat) | — |
 | J | `J` | Jacobian | Jacobian (juh-KOH-bee-un) | maps joint velocities to end-effector velocities | — |
 | ⊞ / ⊟ | `\boxplus / \boxminus` | boxplus / boxminus | boxplus / boxminus | manifold-aware add/subtract (state estimation) | — |
 | ᵃRᵦ | `{}^{a}R_{b}` | frame rotation | a R b / 'rotation of frame b expressed in a' | superscript = reference frame, subscript = target frame | sub/superscript convention varies by team/textbook |
-| ℒ | `\mathcal{L}` | Lagrangian / loss | Lagrangian / (deep learning) loss | ℒ=T−V in dynamics, or the loss function in ML | script ℒ also denotes the Laplace transform or likelihood |
+| ℒ | `\mathcal{L}` | Lagrangian / loss | Lagrangian / (deep learning) loss | ℒ=T−V in dynamics, or the loss function in ML | script ℒ also denotes the Laplace transform operator ℒ{·} or likelihood |
 | ℋ | `\mathcal{H}` | Hamiltonian / Hilbert space | Hamiltonian / Hilbert space | Hamiltonian in optimal control/dynamics; Hilbert space in analysis | — |
 
 ---
